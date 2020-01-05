@@ -1,0 +1,63 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="back()">
+        <ion-icon slot="start" name="arrow-back"></ion-icon>
+        Back
+      </ion-button>
+    </ion-buttons>
+    <ion-title *ngIf="!creating">Editing {{car.name}}</ion-title>
+    <ion-title *ngIf="creating">Creating car</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding page-bg-cstm">
+  <ion-list class="input-list-wrapper-cstm">
+    <ion-item>
+      <ion-label position="floating">Name</ion-label>
+      <ion-input placeholder="Car name" [(ngModel)]="car.name"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Brand</ion-label>
+      <ion-input placeholder="Car brand" [(ngModel)]="car.brand"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Model</ion-label>
+      <ion-input placeholder="Car model" [(ngModel)]="car.model"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Available seats</ion-label>
+      <ion-input type="number" [(ngModel)]="car.seats"></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label position="floating">Color</ion-label>
+        <ion-select value="black" okText="Okay" cancelText="Cancel" [(ngModel)]="car.color">
+          <ion-select-option value="black">Black</ion-select-option>
+          <ion-select-option value="dark_grey">Dark grey</ion-select-option>
+          <ion-select-option value="light_grey">Light grey</ion-select-option>
+          <ion-select-option value="white">White</ion-select-option>
+          <ion-select-option value="red">Red</ion-select-option>
+          <ion-select-option value="blue">Blue</ion-select-option>
+          <ion-select-option value="green">Green</ion-select-option>
+          <ion-select-option value="yellow">Yellow</ion-select-option>
+          <ion-select-option value="other">Other</ion-select-option>
+        </ion-select>
+      </ion-item>
+    <ion-item>
+      <ion-checkbox slot="start" id="wheelchairInput" [(ngModel)]="car.wheelchair"></ion-checkbox>
+      <ion-label for="wheelchairInput">Wheelchair access</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-checkbox slot="start" id="childseatInput" [(ngModel)]="car.childseat"></ion-checkbox>
+      <ion-label for="childseatInput">Child seat</ion-label>
+    </ion-item>
+  </ion-list>
+  <ion-button color="primary" expand="block" (click)="saveCar()">
+    <ion-icon slot="start" name="save"></ion-icon>
+    Save Car
+  </ion-button>
+  <ion-button *ngIf="!creating" color="danger" expand="block" (click)="deleteCar()">
+    <ion-icon slot="start" name="trash"></ion-icon>
+    Delete Car
+  </ion-button>
+</ion-content>

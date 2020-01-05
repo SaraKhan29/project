@@ -1,0 +1,50 @@
+<ion-content fullscreen class="page-bg-cstm" padding>
+  <div class="wrapper-logo-cre-cstm">
+    <img src="../../assets/img/pagelogo.png" class="logo-login-cstm" />
+  </div>
+
+  <h3 class="credentials-title-cstm">Login to Your Account</h3>
+
+  <form #form="ngForm" (ngSubmit)="login()" novalidate>
+    <div class="input-wrapper-cstm">
+      <ion-input
+        name="email"
+        type="email"
+        inputmode="email"
+        pattern="^[a-zA-Z0-9_.+-]+@(?:(?:[a-zA-Z0-9-]+\.)?[a-zA-Z]+\.)?(stud.uni-saarland|uni-saarland|mpi-inf.mpg)\.de$"
+        [(ngModel)]="email"
+        #name="ngModel"
+        placeholder="Enter Email"
+        clearInput
+        required
+      ></ion-input>
+    </div>
+    <div class="input-wrapper-cstm">
+      <ion-input
+        placeholder="Enter Password"
+        name="password"
+        [(ngModel)]="password"
+        type="password"
+        required
+        clearInput
+      ></ion-input>
+    </div>
+    <div class="forget-passwrd-cstm">
+      <a href="/forgot-password">Forgot Password?</a>
+    </div>
+
+    <div class="wrapper-footer-actions-cstm">
+      <div class="already-account-cstm">
+        <a href="/register">Do not have an Account?</a>
+      </div>
+      <ion-button
+        color="primary"
+        mode="ios"
+        expand="block"
+        [disabled]="!form.valid"
+        type="submit"
+        >Login</ion-button
+      >
+    </div>
+  </form>
+</ion-content>

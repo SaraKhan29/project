@@ -1,0 +1,64 @@
+
+
+  <ion-header class="cstm-ion-header ion-padding" >
+    <div class="wrapper-logo-nav-cstm">
+    <img src="../../assets/img/pagelogo.png" class="logo-login-cstm">
+    </div>
+
+  </ion-header>
+<ion-content  class="ion-padding page-bg-cstm">
+
+
+
+
+<h3 class="">Search a ride</h3>
+
+
+
+
+
+<div class="dropdown-wrapper-cstm">
+  <ion-item>
+    <ion-label>From</ion-label>
+    <ionic-selectable
+      [(ngModel)]="port"
+      [items]="ports"
+      itemValueField="id"
+      itemTextField="name"
+      [canSearch]="true"
+      (onChange)="portChange($event)">
+
+    </ionic-selectable>
+  </ion-item>
+ </div>
+
+<div>
+  <ion-button color="primary" class="cstm-input-swap" size="large" ><ion-icon name="git-compare"></ion-icon></ion-button>
+</div>
+
+
+
+
+   <div class="dropdown-wrapper-cstm">
+     <ion-item value="notifications" interface="action-sheet">
+               <ion-label>To</ion-label>
+               <ion-select>
+                 <ion-select-option value="">Botanischer Garten, Universität</ion-select-option>
+                 <ion-select-option value="">Campus, Universität</ion-select-option>
+                 <ion-select-option value="">Busterminal, Universität</ion-select-option>
+                 <ion-select-option value="">Stuhlsatzenhaus</ion-select-option>
+
+               </ion-select>
+             </ion-item>
+    </div>
+
+
+
+
+<div class="cstm-pagger-top-bottom">
+  <ion-button color="primary"  expand="block" (click)="goToSearchResults()">Search Ride</ion-button>
+
+</div>
+
+
+</ion-content >
