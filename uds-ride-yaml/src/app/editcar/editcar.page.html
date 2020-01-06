@@ -1,18 +1,19 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-button (click)="back()">
+      <ion-button (click)="navCtrl.back()">
         <ion-icon slot="start" name="arrow-back"></ion-icon>
         Back
       </ion-button>
     </ion-buttons>
-    <ion-title *ngIf="!creating">Editing {{car.name}}</ion-title>
-    <ion-title *ngIf="creating">Creating car</ion-title>
+    <ion-title *ngIf="!loading && !creating">Editing {{car.name}}</ion-title>
+    <ion-title *ngIf="!loading && creating">Creating car</ion-title>
+    <ion-title *ngIf="loading">Loading...</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding page-bg-cstm">
-  <ion-list class="input-list-wrapper-cstm">
+  <ion-list class="input-list-wrapper-cstm" *ngIf="!loading && car">
     <ion-item>
       <ion-label position="floating">Name</ion-label>
       <ion-input placeholder="Car name" [(ngModel)]="car.name"></ion-input>
@@ -52,11 +53,11 @@
       <ion-label for="childseatInput">Child seat</ion-label>
     </ion-item>
   </ion-list>
-  <ion-button color="primary" expand="block" (click)="saveCar()">
+  <ion-button color="primary" expand="block" (click)="saveCar()" *ngIf="!loading">
     <ion-icon slot="start" name="save"></ion-icon>
     Save Car
   </ion-button>
-  <ion-button *ngIf="!creating" color="danger" expand="block" (click)="deleteCar()">
+  <ion-button color="danger" expand="block" (click)="deleteCar()"*ngIf="!loading && !creating" >
     <ion-icon slot="start" name="trash"></ion-icon>
     Delete Car
   </ion-button>

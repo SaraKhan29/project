@@ -23,9 +23,20 @@ export class CarService {
     private carCollection: AngularFirestoreCollection<Car>;
 
     private cars: Observable<Car[]>;
+    private allcars: Observable<Car[]>;
 
     constructor(db: AngularFirestore) {
         this.carCollection = db.collection<Car>('cars');
+
+        this.allcars = this.carCollection.snapshotChanges().pipe(
+            map(actions => {
+                return actions.map(a => {
+                    const data = a.payload.doc.data();
+                    const id = a.payload.doc.id;
+                    return { id, ...data };
+                });
+            })
+        );
 
         this.cars = this.carCollection.snapshotChanges().pipe(
             map(actions => {
@@ -46,6 +57,10 @@ export class CarService {
 
     getCars() {
         return this.cars;
+    }
+
+    getAllCars() {
+        return this.allcars;
     }
 
     getCar(id: string) {

@@ -1,155 +1,117 @@
-<ion-header class="cstm-ion-header ion-padding" >
-    <div class="wrapper-logo-nav-cstm">
-    <img src="../../assets/img/pagelogo.png" class="logo-login-cstm">
-    </div>
+<ion-header class="cstm-ion-header ion-padding">
+  <div class="wrapper-logo-nav-cstm">
+    <img src="../../assets/img/pagelogo.png" class="logo-login-cstm" />
+  </div>
 
+  <div class="header-top-nav-cstm">
+    <ion-toolbar>
+      <ion-buttons slot="secondary">
+        <ion-button color="primary" fill="clear" href="/tabs/tab1"
+          ><ion-icon name="arrow-back"></ion-icon> Back</ion-button
+        >
+      </ion-buttons>
+    </ion-toolbar>
+    <h3 slot="secondary">Create Ride</h3>
+  </div>
+</ion-header>
 
-
-    <div class="header-top-nav-cstm">
-        <ion-toolbar>
-         
-    
-    
-    
-          <ion-buttons slot="secondary">
-            <ion-button color="primary" fill="clear" href="/tabs/tab1"><ion-icon name="arrow-back"></ion-icon> Back</ion-button>
-          </ion-buttons>
-        </ion-toolbar>
-        <h3 slot="secondary">Create Rides</h3>
-      </div>
-
- 
-  
-
-
-  </ion-header>
-  <ion-content  class="page-bg-cstm ion-padding" >
- 
-      <ion-item class="item-wrapper-cstm">
-          <ion-label>How may seats are offered!</ion-label>
-        <ion-select value="brown" okText="Select" cancelText="Dismiss">
-          <ion-select-option value="brown">1</ion-select-option>
-          <ion-select-option value="blonde">2</ion-select-option>
-          <ion-select-option value="black">3</ion-select-option>
-        </ion-select>
-      </ion-item>
-
-           <ion-item class="item-wrapper-cstm">
-              <ion-label>How may days/week (e.g. 3)</ion-label>
-            <ion-select value="brown" okText="Select" cancelText="Dismiss">
-              <ion-select-option value="brown">1</ion-select-option>
-              <ion-select-option value="blonde">2</ion-select-option>
-              <ion-select-option value="black">3</ion-select-option>
-              <ion-select-option value="red">4</ion-select-option>
-              <ion-select-option value="red">5</ion-select-option>
-              <ion-select-option value="red">6</ion-select-option>
-              <ion-select-option value="red">7</ion-select-option>
-            </ion-select>
-          </ion-item>
-<h5>Repeat schedule for next week/s </h5>
-          <ion-item class="item-wrapper-cstm">
-              <ion-label>Setec The weeks</ion-label>
-            <ion-select value="brown" okText="Select" cancelText="Dismiss">
-              <ion-select-option value="brown">1</ion-select-option>
-              <ion-select-option value="blonde">2</ion-select-option>
-              <ion-select-option value="black">3</ion-select-option>
-              <ion-select-option value="red">4</ion-select-option>
-            </ion-select>
-          </ion-item>
-               
-               <ion-item class="item-wrapper-cstm">
-  <ion-label>Ride Start Date</ion-label>
-  <ion-datetime displayFormat="MM DD YY" placeholder="MM DD YY"></ion-datetime>
-</ion-item>
-
-
-
-
-        <ion-item class="item-wrapper-cstm">
-            <ion-label>Select Car</ion-label>
-          <ion-select value="brown" okText="Select" cancelText="Dismiss">
-            <ion-select-option value="brown">Car 01</ion-select-option>
-            <ion-select-option value="blonde">Car 02</ion-select-option>
-            <ion-select-option value="black">Car 03</ion-select-option>
-            <ion-select-option value="red">Car 04</ion-select-option>
-          </ion-select>
-        </ion-item>
-      
-    
-<h5>Ride on</h5>
-<div class="ride-ranger-select"> 
-<ion-item class="item-wrapper-cstm">
-    <ion-label>Select Day</ion-label>
-  <ion-select value="brown" okText="Select" cancelText="Dismiss">
-    <ion-select-option value="brown">Monday</ion-select-option>
-    <ion-select-option value="blonde">Tuesday</ion-select-option>
-    <ion-select-option value="black">Wednesday</ion-select-option>
-    <ion-select-option value="red">Thursday</ion-select-option>
-    <ion-select-option value="red">Friday</ion-select-option>
-  </ion-select>
-</ion-item>
-
-<ion-item class="item-wrapper-cstm">
-    <ion-label>Ride Start Time</ion-label>
-    <ion-datetime displayFormat="HH:mm" placeholder="HH:MM"></ion-datetime>
+<ion-content class="page-bg-cstm ion-padding" *ngIf="user && ride">
+  <ion-item class="item-wrapper-cstm">
+    <ion-label>Seats offered</ion-label>
+    <ion-select
+      okText="Select"
+      cancelText="Dismiss"
+      [(ngModel)]="ride.available_seats"
+    >
+      <ion-select-option value="1">1</ion-select-option>
+      <ion-select-option value="2">2</ion-select-option>
+      <ion-select-option value="3">3</ion-select-option>
+    </ion-select>
   </ion-item>
 
   <ion-item class="item-wrapper-cstm">
+    <ion-label>Ride Date</ion-label>
+    <ion-datetime
+      displayFormat="MM DD YY"
+      placeholder="MM DD YY"
+      [(ngModel)]="ride.date"
+    ></ion-datetime>
+  </ion-item>
+
+  <ion-item class="item-wrapper-cstm">
+    <ion-label>Select Car</ion-label>
+    <ion-select
+      value="{{car}}"
+      okText="Select"
+      cancelText="Dismiss"
+      [(ngModel)]="ride.car"
+    >
+      <ion-select-option *ngFor="let car of cars" value="{{car}}">
+        {{car.name}}
+      </ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <h5>Ride on</h5>
+  <div class="ride-ranger-select">
+    <ion-item class="item-wrapper-cstm">
+      <ion-label>Ride Start Time</ion-label>
+      <ion-datetime
+        displayFormat="HH:mm"
+        placeholder="HH:MM"
+        [(ngModel)]="ride.start_time"
+      ></ion-datetime>
+    </ion-item>
+
+    <ion-item class="item-wrapper-cstm">
       <ion-label>Ride End Time</ion-label>
-      <ion-datetime displayFormat="HH:mm" placeholder="HH:MM"></ion-datetime>
+      <ion-datetime
+        displayFormat="HH:mm"
+        placeholder="HH:MM"
+        [(ngModel)]="ride.end_time"
+      ></ion-datetime>
     </ion-item>
   </div>
 
-  <div class="ride-ranger-select"> 
-      <ion-item class="item-wrapper-cstm">
-          <ion-label>Select Day</ion-label>
-        <ion-select value="brown" okText="Select" cancelText="Dismiss">
-          <ion-select-option value="brown">Monday</ion-select-option>
-          <ion-select-option value="blonde">Tuesday</ion-select-option>
-          <ion-select-option value="black">Wednesday</ion-select-option>
-          <ion-select-option value="red">Thursday</ion-select-option>
-          <ion-select-option value="red">Friday</ion-select-option>
-        </ion-select>
-      </ion-item>
-      
-      <ion-item class="item-wrapper-cstm">
-          <ion-label>Ride Start Time</ion-label>
-          <ion-datetime displayFormat="HH:mm" placeholder="HH:MM"></ion-datetime>
-        </ion-item>
-      
-        <ion-item class="item-wrapper-cstm">
-            <ion-label>Ride End Time</ion-label>
-            <ion-datetime displayFormat="HH:mm" placeholder="HH:MM"></ion-datetime>
-          </ion-item>
-        </div>
+  <h5>Ride Location</h5>
 
-        <div class="ride-ranger-select"> 
-            <ion-item class="item-wrapper-cstm">
-                <ion-label>Select Day</ion-label>
-              <ion-select value="brown" okText="Select" cancelText="Dismiss">
-                <ion-select-option value="brown">Monday</ion-select-option>
-                <ion-select-option value="blonde">Tuesday</ion-select-option>
-                <ion-select-option value="black">Wednesday</ion-select-option>
-                <ion-select-option value="red">Thursday</ion-select-option>
-                <ion-select-option value="red">Friday</ion-select-option>
-              </ion-select>
-            </ion-item>
-            
-            <ion-item class="item-wrapper-cstm">
-                <ion-label>Ride Start Time</ion-label>
-                <ion-datetime displayFormat="HH:mm" placeholder="HH:MM"></ion-datetime>
-              </ion-item>
-            
-              <ion-item class="item-wrapper-cstm">
-                  <ion-label>Ride End Time</ion-label>
-                  <ion-datetime displayFormat="HH:mm" placeholder="HH:MM"></ion-datetime>
-                </ion-item>
-              </div>
-  </ion-content>
+  <ion-item class="item-wrapper-cstm">
+    <ion-label>From</ion-label>
+    <ion-select
+      value="{{stop}}"
+      okText="Select"
+      cancelText="Dismiss"
+      [(ngModel)]="ride.start_location"
+    >
+      <ion-select-option *ngFor="let stop of stops" value="{{stop}}">
+        {{stop.name}}
+      </ion-select-option>
+    </ion-select>
+  </ion-item>
 
+  <ion-item class="item-wrapper-cstm">
+    <ion-label>To</ion-label>
+    <ion-select
+      value="{{stop}}"
+      okText="Select"
+      cancelText="Dismiss"
+      [(ngModel)]="ride.end_location"
+    >
+      <ion-select-option *ngFor="let stop of stops" value="{{stop}}">
+        {{stop.name}}
+      </ion-select-option>
+    </ion-select>
+  </ion-item>
+</ion-content>
 
 <ion-footer>
-    <ion-toolbar>
-        <ion-button color="primary" expand="block" size="medium" (click)="offerRide()">Offer Ride</ion-button>
-    </ion-toolbar>
-  </ion-footer>
+  <ion-toolbar>
+    <ion-button
+      color="primary"
+      expand="block"
+      size="medium"
+      (click)="offerRide()"
+      >Offer Ride</ion-button
+    >
+  </ion-toolbar>
+</ion-footer>

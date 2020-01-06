@@ -88,10 +88,10 @@ const routes: Routes = [
   {
     path: 'create-ride',
     loadChildren: () => import('./create-ride/create-ride.module').then( m => m.CreateRidePageModule)
-  },  //{
-   // path: 'chat',
-   // loadChildren: () => import('./chat/chat.module').then( m => m.ChatPageModule)
-  //},
+  },  {
+    path: 'chat',
+    loadChildren: () => import('./chat/chat.module').then( m => m.ChatPageModule)
+  },
 
 
   // {

@@ -22,7 +22,7 @@
             "assets": [
               {
                 "glob": "**/*",
-                "input": "src/assets", 
+                "input": "src/assets",
                 "output": "assets"
               },
               {
@@ -30,10 +30,8 @@
                 "input": "node_modules/ionicons/dist/ionicons/svg",
                 "output": "./svg"
               },
-			"src/firebase-messaging-sw.js",
-			"src/manifest.json"
+				"firebase-messaging-sw.js"
             ],
-			
             "styles": [
               {
                 "input": "src/theme/variables.scss"

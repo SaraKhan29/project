@@ -33,18 +33,24 @@
       <a href="/forgot-password">Forgot Password?</a>
     </div>
 
-    <div class="wrapper-footer-actions-cstm">
-      <div class="already-account-cstm">
-        <a href="/register">Do not have an Account?</a>
-      </div>
-      <ion-button
-        color="primary"
-        mode="ios"
-        expand="block"
-        [disabled]="!form.valid"
-        type="submit"
-        >Login</ion-button
-      >
-    </div>
+
   </form>
 </ion-content>
+
+
+<ion-footer padding>
+
+  <div class="">
+    <div class="already-account-cstm">
+      <a href="/register">Do not have an Account?</a>
+    </div>
+    <ion-button
+      color="primary"
+      mode="ios"
+      expand="block"
+      [disabled]="!form.valid"
+      type="submit"
+      >Login</ion-button
+    >
+  </div>
+</ion-footer>

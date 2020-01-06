@@ -23,11 +23,19 @@ class Port {
 
 
 export class Tab2Page {
-  ports: Port[];
-  port: Port;
+  ports1: Port[];
+  port1: Port;
+  port2: Port;
+
+  ports2: Port[] = [
+    { id: 1, name: 'Botanischer Garten, Universität' },
+    { id: 2, name: 'Campus, Universität' },
+    { id: 3, name: 'Busterminal, Universität' },
+    { id: 4, name: 'Stuhlsatzenhause' },
+  ];
 
   constructor(private router: Router) {
-    this.ports = [
+    this.ports1 = [
       { id: 1, name: 'Markt, Dudweiler Saarbrücken' },
       { id: 2, name: 'Bürgerhaus, Dudweiler Saarbrücken' },
       { id: 3, name: 'Beim Weisenstein, Dudweiler Saarbrücken' },
@@ -71,7 +79,9 @@ export class Tab2Page {
   }
 
 goToSearchResults() {
-this.router.navigateByUrl('/tabs/tab2/search-results');
+//this.router.navigateByUrl('/tabs/tab2/search-results');
+//this.router.navigate(['/search-results'], { queryParams: { page: pageNum } });
+this.router.navigate(['/tabs/tab2/search-results', { start_location: this.port1.name, end_location: this.port2.name }]);
 }
 
 

@@ -75,19 +75,25 @@
       </ion-row>
     </ion-grid>
 
-    <div class="wrapper-footer-actions-cstm">
-      <div class="already-account-cstm">
-        <a href="/login">Already have an Account?</a>
-      </div>
-      <ion-button
-        color="primary"
-        mode="ios"
-        [disabled]="!form.valid"
-        type="submit"
-        expand="block"
-      >
-        Register</ion-button
-      >
-    </div>
+   
   </form>
 </ion-content>
+
+
+<ion-footer padding>
+  <div class="">
+    <div class="already-account-cstm">
+      <a href="/login">Already have an Account?</a>
+    </div>
+    <ion-button
+      color="primary"
+      mode="ios"
+      [disabled]="!form.valid"
+      type="submit"
+      expand="block"
+    >
+      Register</ion-button
+    >
+  </div>
+
+</ion-footer >
