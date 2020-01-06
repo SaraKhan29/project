@@ -76,6 +76,7 @@ export class SearchResultsDetailsPage implements OnInit {
       buttons: ['OK']
     })
 	await alert.present();
+	
 
 	FIREBASE_MESSAGING.requestPermission()
     .then(() => handleTokenRefresh())
@@ -83,6 +84,22 @@ export class SearchResultsDetailsPage implements OnInit {
       console.log("error getting permission!");
     })
 
+	const notificationMessage = "Hi Driver! There is a booking reuqest for you!"
+  	if ( !notificationMessage ) return;
+
+  	FIREBASE_DATABASE.ref('/notifications')
+    .push({
+      user: FIREBASE_AUTH.currentUser.displayName,
+      message: notificationMessage
+    })
+    .then(() => {
+     console.log("notification sent")
+    })
+    .catch(() => {
+      console.log("error sending notification :(")
+    });
+
   };
+
 
 }
