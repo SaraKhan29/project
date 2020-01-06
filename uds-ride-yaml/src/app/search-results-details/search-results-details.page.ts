@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 import { ProfileService, Profile } from '../services/profile.service';
 import { CarService, Car } from '../services/car.service';
-import { RideService, Ride } from '../services/ride.service';
+import { RideService, Ride } from '../services/create-ride.service';
 //import { ChatService, ChatMessage } from '../services/chat.service';
 import firebase = require('firebase');
 //import { FcmPushService } from "../services/message.service";
