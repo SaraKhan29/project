@@ -6,7 +6,7 @@ import { CarService, Car } from '../services/car.service';
 import { RideService, Ride } from '../services/ride.service';
 //import { ChatService, ChatMessage } from '../services/chat.service';
 import firebase = require('firebase');
-import { FcmPushService } from "../services/message.service";
+//import { FcmPushService } from "../services/message.service";
 
 
 
@@ -31,15 +31,15 @@ export class SearchResultsDetailsPage implements OnInit {
   private rideid= "BxD2h7xBCayTnzC7IA9m"; 
   private carid= "Wm3XI3kHeDxAhZAWzPCL";
   //private carid;
- private title="app works";
- private user;
-  private message;
+ //private title="app works";
+ //private user;
+  //private message;
 
   constructor(public alertController: AlertController,
 		public profileService: ProfileService,
 		public carService: CarService,
 		public rideService: RideService,
-		private _fcmPushService: FcmPushService
+	//	private _fcmPushService: FcmPushService
 		) { }
 
   ngOnInit() {
@@ -72,10 +72,10 @@ export class SearchResultsDetailsPage implements OnInit {
 
     await alert.present();
 
-	this.user = this.userid;
-	this._fcmPushService.getPermission();
-    this._fcmPushService.receiveMessage();
-    this._fcmPushService.currentMessage.subscribe(message => this.message = message);
+	//this.user = this.userid;
+	//this._fcmPushService.getPermission();
+    //this._fcmPushService.receiveMessage();
+    //this._fcmPushService.currentMessage.subscribe(message => this.message = message);
 
 //still working on it
  /*   this.messagingService.requestPermission(this.userid)
