@@ -1,29 +1,72 @@
+  
+'use strict';
+
 const functions = require('firebase-functions');
 const admin = require('firebase-admin');
 admin.initializeApp(functions.config().firebase);
 
-exports.sendNotifications = functions.database.ref('/notifications/{notificationId}').onWrite((event) => {
+const bookN = require('./notifications/bookNotification.js');
+
+//another.data.bookN.bookNotification();
+
+exports.bookNotification = bookN;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*const functions = require('firebase-functions');
+const admin = require('firebase-admin');
+admin.initializeApp(functions.config().firebase);
+
+exports.sendNotifications = functions.database.ref('/notifications/{notificationId}').onWrite((change, context) => {
 
   // Exit if data already created
-  if (event.data.previous.val()) {
-    return;
-  }
+//  if (event.data.previous.val()) {
+  //  return;
+  //}
 
   // Exit when the data is deleted
-  if (!event.data.exists()) {
-    return;
-  }
+ // if (!event.data.exists()) {
+  //  return;
+ // }
 
   // Setup notification
-  const NOTIFICATION_SNAPSHOT = event.data;
+  const NOTIFICATION_SNAPSHOT = change.after.val();
   const payload = {
     notification: {
-      title: `New Message from ${NOTIFICATION_SNAPSHOT.val().user}!`,
-      body: NOTIFICATION_SNAPSHOT.val().message,
-      icon: NOTIFICATION_SNAPSHOT.val().userProfileImg,
-      click_action: `https://${functions.config().firebase.authDomain}`
+      title: `New Message!`,
+      body: NOTIFICATION_SNAPSHOT.message,
+     // icon: NOTIFICATION_SNAPSHOT.val().userProfileImg,
+      //click_action: `https://${functions.config().firebase.authDomain}`
     }
   }
+console.info(payload)
 
   // Clean invalid tokens
   function cleanInvalidTokens(tokensWithKey, results) {
@@ -71,4 +114,4 @@ exports.sendNotifications = functions.database.ref('/notifications/{notification
   });
 
 
-});
+});*/
