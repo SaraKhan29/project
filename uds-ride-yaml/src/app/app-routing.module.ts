@@ -17,7 +17,7 @@
 // export class AppRoutingModule {}
 
 
-
+import { DataResolverService } from './resolver/data-resolver.service';
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
@@ -62,7 +62,21 @@ const routes: Routes = [
     loadChildren: () => import('./search-results/search-results.module').then( m => m.SearchResultsPageModule)
   },
   {
+    path: 'tabs/tab2/search-results/:id',
+    resolve: {
+      special: DataResolverService
+    },
+    loadChildren: () => import('./search-results/search-results.module').then( m => m.SearchResultsPageModule)
+  },
+  {
     path: 'search-results-details',
+    loadChildren: () => import('./search-results-details/search-results-details.module').then( m => m.SearchResultsDetailsPageModule)
+  },
+  {
+    path: 'search-results-details/:id',
+    resolve: {
+      special: DataResolverService
+    },
     loadChildren: () => import('./search-results-details/search-results-details.module').then( m => m.SearchResultsDetailsPageModule)
   },
   {
@@ -78,22 +92,30 @@ const routes: Routes = [
     loadChildren: () => import('./profile/profile.module').then( m => m.ProfilePageModule)
   },
   {
-    path: 'editcar',
-    loadChildren: () => import('./editcar/editcar.module').then( m => m.EditcarPageModule)
-  },
-  {
-    path: 'register-car',
-    loadChildren: () => import('./register-car/register-car.module').then( m => m.RegisterCarPageModule)
+    path: 'edit-car',
+    loadChildren: () => import('./edit-car/edit-car.module').then( m => m.EditCarPageModule)
   },
   {
     path: 'create-ride',
     loadChildren: () => import('./create-ride/create-ride.module').then( m => m.CreateRidePageModule)
-  },  {
+  },
+  {
     path: 'chat',
     loadChildren: () => import('./chat/chat.module').then( m => m.ChatPageModule)
   },
+  {
+    path: 'edit-ride',
+    loadChildren: () => import('./edit-ride/edit-ride.module').then( m => m.EditRidePageModule)
+  },
+  {
+    path: 'offer-ride-details',
+    loadChildren: () => import('./offer-ride-details/offer-ride-details.module').then( m => m.OfferRideDetailsPageModule)
+  },
 
-
+  {
+    path: 'ride-with-details',
+    loadChildren: () => import('./ride-with-details/ride-with-details.module').then( m => m.RideWithDetailsPageModule)
+  }
   // {
   //   path: 'tab1',
   //   loadChildren: () => import('./tab1/tab1.module').then( m => m.Tab1PageModule)

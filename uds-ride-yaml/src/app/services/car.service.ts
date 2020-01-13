@@ -22,13 +22,13 @@ export interface Car {
 export class CarService {
     private carCollection: AngularFirestoreCollection<Car>;
 
-    private cars: Observable<Car[]>;
-    private allcars: Observable<Car[]>;
+    private carUpdates: Observable<Car[]>;
+    private cars: Car[] = [];
 
     constructor(db: AngularFirestore) {
         this.carCollection = db.collection<Car>('cars');
 
-        this.allcars = this.carCollection.snapshotChanges().pipe(
+        this.carUpdates = this.carCollection.snapshotChanges().pipe(
             map(actions => {
                 return actions.map(a => {
                     const data = a.payload.doc.data();
@@ -38,29 +38,41 @@ export class CarService {
             })
         );
 
-        this.cars = this.carCollection.snapshotChanges().pipe(
-            map(actions => {
-                return actions.filter(a => {
-                    if (!a.payload.doc.data().owner || !firebase.auth().currentUser) {
+        this.carUpdates.pipe(map(res => {
+            this.cars = res;
+        }));
+    }
+
+    getMyCars() {
+        return this.cars.filter(car => {
+            if (!car.owner || !firebase.auth().currentUser) {
+                return false;
+            }
+
+            return car.owner === firebase.auth().currentUser.uid;
+        });
+    }
+
+    getMyCarUpdates() {
+        return this.carUpdates.pipe(
+            map(cars => {
+                return cars.filter(car => {
+                    if (!car.owner || !firebase.auth().currentUser) {
                         return false;
                     }
 
-                    return a.payload.doc.data().owner === firebase.auth().currentUser.uid;
-                }).map(a => {
-                    const data = a.payload.doc.data();
-                    const id = a.payload.doc.id;
-                    return { id, ...data };
+                    return car.owner === firebase.auth().currentUser.uid;
                 });
             })
         );
     }
 
-    getCars() {
+    getAllCars() {
         return this.cars;
     }
 
-    getAllCars() {
-        return this.allcars;
+    getAllCarUpdates() {
+        return this.carUpdates;
     }
 
     getCar(id: string) {

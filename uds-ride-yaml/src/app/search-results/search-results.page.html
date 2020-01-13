@@ -14,7 +14,7 @@
   
   
         <ion-buttons slot="primary">
-          <ion-button color="success" fill="solid">3 Rides Found</ion-button>
+          <ion-button color="success" fill="solid">{{ this.countr }} Rides Found</ion-button>
         </ion-buttons>
       </ion-toolbar>
   
@@ -137,7 +137,7 @@
           </ion-row>
         </ion-grid>
   
-        <ion-button color="primary" expand="block" size="small" href="/search-results-details">View Details</ion-button>
+        <ion-button color="primary" expand="block" size="small" (click)="goToDetails(ride)">View Details</ion-button>
   
       </ion-card-content>
     </ion-card>

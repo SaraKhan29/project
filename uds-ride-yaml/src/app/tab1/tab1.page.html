@@ -6,66 +6,109 @@
   <div class="header-top-nav-cstm">
       <ion-toolbar>
           <h3 slot="secondary">My Rides</h3>
-       
-  
-  
-  
-        <ion-buttons slot="primary" class="primary">
-            <ion-button color="primary" fill="clear" expand="block" href="/create-ride"><ion-icon name="add-circle" size="large" class="primary-icon-cstm"></ion-icon></ion-button>
-            
+            <ion-buttons slot="primary" class="primary">
+            <ion-button color="primary" fill="clear" expand="block" href="/create-ride"><ion-icon name="add-circle" size="large" class="primary-icon-cstm"></ion-icon></ion-button> 
         </ion-buttons>
       </ion-toolbar>
-  
-    </div>
+  </div>
 
 
 </ion-header>
 <ion-content  class=" page-bg-cstm">
   <div>
       <ion-segment [(ngModel)]="choice" class="ion-padding" scrollable>
-        <ion-segment-button  class = "seg-button-custm"   value="offer ride" checked >
+        <ion-segment-button class="seg-button-custm" (click)="getRides()" value="offer ride" checked >
          Offer Ride
         </ion-segment-button>
-        <ion-segment-button   class = "seg-button-custm"  value="ride with"  >
+        <ion-segment-button class="seg-button-custm" value="ride with"   (click)="getBookedRides()" checked>
           Ride with
         </ion-segment-button>
       </ion-segment>
     </div>
     <div [ngSwitch]="choice" checked>
-      <ion-card *ngSwitchCase="'offer ride'">
-          <ion-item color="danger" >
-              <ion-label>
-                  Please register your car to offer ride 
-              </ion-label>
-            </ion-item> 
-        
-        <ion-card-content>
-            <ion-button color="primary"  expand="block"  size = "medium" (click)="RegisterCar()" >Register My Car</ion-button>
-          
-        </ion-card-content>
-      </ion-card>
 
-      <ion-card *ngSwitchCase="'ride with'">
-          <ion-item color="warning" >
-              <ion-label>
-                  You have not booked any ride.
-              </ion-label>
-            </ion-item> 
-        
-        <ion-card-content>
-            <ion-button color="primary"  expand="block"  size = "medium" (click)="RegisterCar()" >Search  ride</ion-button>
-          
+<div *ngSwitchCase="'offer ride'"> 
+      
+  <ion-card *ngFor="let ride of rides">
+        <ion-card-content *ngIf="ride.carobj != undefined" class="card-content-cstm">
+    
+          <ion-grid>
+            <ion-row>
+              <ion-col size="3">
+                <div class="search-ride-card-cstm">
+                  <ion-img src="../assets/img/ride.svg"></ion-img>
+                </div>
+              </ion-col>
+              <ion-col size="9">
+                <ion-card-title> Seats: {{ride.available_seats}} </ion-card-title>
+                <ion-card-subtitle> {{ride.carobj.name}}</ion-card-subtitle>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+    
+          <ion-grid>
+            <ion-row>
+              <ion-col size="6">
+                <ion-icon name="calendar" size="large"></ion-icon>
+                <ion-card-subtitle class="align-center"> {{ride.date |  date:'MM/dd/yyyy'}} </ion-card-subtitle>
+              </ion-col>
+              <ion-col size="6">
+                <ion-icon name="time" size="large"></ion-icon>
+                <ion-card-subtitle class="align-center"> {{ride.start_time | date:'h:mm' }} - {{ride.end_time | date:'h:mm' }} </ion-card-subtitle>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+          <ion-button color="primary" expand="block" size="small" href="/offer-ride-details">View Details</ion-button>
         </ion-card-content>
       </ion-card>
 
     </div>
 
+    <div *ngSwitchCase="'ride with'">
+      <ion-card>
+        <ion-card-content class="card-content-cstm">
+    
+          <ion-grid>
+            <ion-row>
+              <ion-col size="3">
+                <div class="search-ride-card-cstm">
+                  <ion-img src="../assets/img/ride.svg"></ion-img>
+                </div>
+              </ion-col>
+              <ion-col size="9">
+                <ion-card-title>{{rides2.driver}} </ion-card-title>
+                <ion-card-subtitle> {{this.carobj2.brand}} {{this.carobj2.model}}</ion-card-subtitle>
+              </ion-col>
+            </ion-row>
+    
+          </ion-grid>
+    
+          <ion-grid>
+            <ion-row>
+              <ion-col size="6">
+                <ion-icon name="calendar" size="large"></ion-icon>
+                <ion-card-subtitle class="align-center"> {{ this.rides2.date }}</ion-card-subtitle>
+              </ion-col>
+              <ion-col size="6">
+                <ion-icon name="time" size="large"></ion-icon>
+                <ion-card-subtitle class="align-center">  {{ this.rides2.start_time }} - {{ this.rides2.end_time }}</ion-card-subtitle>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+          <ion-button color="primary" expand="block" size="small" href="/ride-with-details">View Details</ion-button>
+        </ion-card-content>
+      </ion-card>
 
-<div > 
-  <h2>Important Note for Devs</h2>
-  <p>This is a failure case. Please check page "my-rides-success" for success case</p>
-</div>
+     
+      
 
-<ion-button (click)="chatTest()">Chat test</ion-button>
+    </div>
+
+ 
+
+    </div>
+
+
+
    
 </ion-content>

@@ -14,6 +14,7 @@
         pattern="^[a-zA-Z0-9_.+-]+@(?:(?:[a-zA-Z0-9-]+\.)?[a-zA-Z]+\.)?(stud.uni-saarland|uni-saarland|mpi-inf.mpg)\.de$"
         [(ngModel)]="email"
         #name="ngModel"
+        id="id_email"
         placeholder="Enter Email"
         clearInput
         required
@@ -25,6 +26,7 @@
         name="password"
         [(ngModel)]="password"
         type="password"
+        id="id_password"
         required
         clearInput
       ></ion-input>
@@ -32,14 +34,10 @@
     <div class="forget-passwrd-cstm">
       <a href="/forgot-password">Forgot Password?</a>
     </div>
-
-
   </form>
 </ion-content>
 
-
 <ion-footer padding>
-
   <div class="">
     <div class="already-account-cstm">
       <a href="/register">Do not have an Account?</a>
@@ -48,8 +46,10 @@
       color="primary"
       mode="ios"
       expand="block"
+      id="id_login"
       [disabled]="!form.valid"
       type="submit"
+      (click)="login()"
       >Login</ion-button
     >
   </div>

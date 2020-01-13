@@ -1,14 +1,16 @@
-import { AppPage } from './app.po';
+import { HomePage } from "./app.po";
 
-describe('new App', () => {
-  let page: AppPage;
+describe("Home Page Tests", () => {
+  let home_page: HomePage;
 
   beforeEach(() => {
-    page = new AppPage();
+    home_page = new HomePage();
   });
 
-  it('should be blank', () => {
-    page.navigateTo();
-    expect(page.getParagraphText()).toContain('The world is your oyster.');
+  it("should have headline", () => {
+    home_page.navigateTo();
+    expect(home_page.getParagraphText()).toContain(
+      "Life ain't always beautiful, but it's a beautiful ride."
+    );
   });
 });

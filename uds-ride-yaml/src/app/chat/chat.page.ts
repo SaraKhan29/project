@@ -32,7 +32,10 @@ export class ChatPage implements OnInit {
 
         this.user = firebase.auth().currentUser;
 
-        this.chatService.getChatMessages('test').subscribe(res => {
+        this.messages = this.chatService.getChatMessages('test');
+        this.messagesLoaded = true;
+
+        this.chatService.getChatMessageUpdates('test').subscribe(res => {
             this.messages = res;
             this.messagesLoaded = true;
         });
@@ -40,7 +43,7 @@ export class ChatPage implements OnInit {
 
     async sendMessage() {
         await this.chatService.sendMessage({
-            author: this.profileService.getProfileReference(this.user.uid),
+            author: this.user.uid,
             content: this.messageDraft,
             ride: 'test',
             date: new Date()

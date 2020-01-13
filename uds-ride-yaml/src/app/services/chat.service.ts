@@ -1,4 +1,4 @@
-import { AngularFirestoreCollection, AngularFirestore, DocumentReference } from '@angular/fire/firestore';
+import { AngularFirestoreCollection, AngularFirestore } from '@angular/fire/firestore';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -6,7 +6,7 @@ import { Profile, ProfileService } from './profile.service';
 
 export interface ChatMessageData {
     content: string;
-    author: DocumentReference;
+    author: string;
     ride: string;
     date: Date;
 }
@@ -32,7 +32,7 @@ export class ChatMessage {
             this.date = data.date;
         });
 
-        profileService.getProfile(data.author.id).subscribe(profile => {
+        profileService.getProfile(data.author).subscribe(profile => {
             this.author = profile;
         });
     }
@@ -44,12 +44,13 @@ export class ChatMessage {
 export class ChatService {
     private chatMessageCollection: AngularFirestoreCollection<ChatMessageData>;
 
-    private chatMessages: Observable<ChatMessage[]>;
+    private chatMessageUpdates: Observable<ChatMessage[]>;
+    private chatMessages: ChatMessage[] = [];
 
     constructor(db: AngularFirestore, profileService: ProfileService) {
         this.chatMessageCollection = db.collection<ChatMessageData>('chat_messages');
 
-        this.chatMessages = this.chatMessageCollection.snapshotChanges().pipe(
+        this.chatMessageUpdates = this.chatMessageCollection.snapshotChanges().pipe(
             map(actions => {
                 return actions.map(a => {
                     const data = a.payload.doc.data();
@@ -58,10 +59,22 @@ export class ChatService {
                 });
             })
         );
+
+        this.chatMessageUpdates.subscribe(res => {
+            this.chatMessages = res;
+        });
     }
 
-    getChatMessages(ride: string) {
-        return this.chatMessages.pipe(
+    getChatMessages(ride: string): ChatMessage[] {
+        return this.chatMessages.filter(message => {
+            return message.ride === ride;
+        }).sort((a, b) => {
+            return a.date < b.date ? -1 : 1;
+        });
+    }
+
+    getChatMessageUpdates(ride: string) {
+        return this.chatMessageUpdates.pipe(
             map(messages => {
                 return messages.filter(message => {
                     return message.ride === ride;

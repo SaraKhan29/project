@@ -8,6 +8,7 @@ import firebase = require('firebase');
 import { checkLoggedIn } from '../util/auto-login';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { DataService } from '../services/data.service';
 
 @Component({
   selector: 'app-search-results',
@@ -26,7 +27,10 @@ export class SearchResultsPage implements OnInit {
     private name: string;
     private start_location;
     private end_location;
-    private sub: any
+    private count: number = 0;
+    private countr: string;
+    private sub: any;
+    private locations: string[];
 
   constructor(
     public toastController: ToastController,
@@ -36,19 +40,18 @@ export class SearchResultsPage implements OnInit {
     private carService: CarService,
     private alertCtrl: AlertController,
     private route: ActivatedRoute,
+    private dataService: DataService
       ) {}
     
   async ngOnInit() {
     if (!await checkLoggedIn(this.alertCtrl, this.navCtrl)) {
         return;
     }
-
-    this.sub = this.route.params.subscribe(params => {
-      //this.name = params['name']; 
-      this.start_location = params['start_location'];
-      this.end_location = params['end_location'];
-
-   });
+    if (this.route.snapshot.data['special']) {
+      this.locations = this.route.snapshot.data['special'];
+      this.start_location = this.locations[0];
+      this.end_location = this.locations[1];
+    }
 
     this.user = firebase.auth().currentUser;
 
@@ -59,29 +62,42 @@ export class SearchResultsPage implements OnInit {
 
       for (var ride of this.allRides) {
         if (ride.start_location == this.start_location && ride.end_location == this.end_location) {
-          this.requestedRides.push(ride);
+          this.count  = this.requestedRides.push(ride);
+        }
+      }
+      this.countr = this.count.toString();
+
+      this.cars = this.carService.getAllCars();
+      for (const requestedRide of this.requestedRides) {
+        for (const car of this.cars) {
+          if (car.id === requestedRide.car) {
+            requestedRide.carobj = car;
+          }
         }
       }
 
-      this.carService.getAllCars().subscribe(res => {
+      this.carService.getAllCarUpdates().subscribe(res => {
         this.cars = res;
 
-        for (var aride of this.requestedRides) {
-          for (var acar of this.cars) {
-
-            if (acar.id == aride.car)
-            {
-              
-              aride.carobj = acar;
+        for (const requestedRide of this.requestedRides) {
+          for (const car of this.cars) {
+            if (car.id === requestedRide.car) {
+              requestedRide.carobj = car;
             }
           }
-          
         }
        });
       
     });
 
   }
+  goToDetails(selectedRide: Ride) {
+    this.dataService.setData(42, selectedRide);
+    //this.router.navigateByUrl('/search-results-details/42');
+    this.router.navigate(['/search-results-details/42']);
+    //this.router.navigate(['/search-results-details', { start_location: "Hello", end_location: "Hi" }]);
+  }
+
     async presentToast() {
       const toast = await this.toastController.create({
         message: 'Your settings have been saved.',

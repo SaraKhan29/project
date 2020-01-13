@@ -37,7 +37,8 @@ export class ProfilePage implements OnInit {
             this.profile = res;
         });
 
-        this.carService.getCars().subscribe(res => {
+        this.cars = this.carService.getMyCars();
+        this.carService.getMyCarUpdates().subscribe(res => {
             this.cars = res;
         });
     }
@@ -143,7 +144,7 @@ export class ProfilePage implements OnInit {
                 car: carObject
             }
         };
-        this.router.navigate(['editcar'], navigationExtras);
+        this.router.navigate(['edit-car'], navigationExtras);
     }
 
     createCar() {
@@ -152,6 +153,6 @@ export class ProfilePage implements OnInit {
                 creating: true
             }
         };
-        this.router.navigate(['editcar'], navigationExtras);
+        this.router.navigate(['edit-car'], navigationExtras);
     }
 }

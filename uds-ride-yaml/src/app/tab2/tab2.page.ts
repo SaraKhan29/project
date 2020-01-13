@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { IonicSelectableComponent } from 'ionic-selectable';
 import { Router } from '@angular/router';
+import { DataService } from '../services/data.service';
 
 class Port {
   public id: number;
@@ -26,6 +27,7 @@ export class Tab2Page {
   ports1: Port[];
   port1: Port;
   port2: Port;
+  private locations: string[] = ['Apple', 'Orange'];
 
   ports2: Port[] = [
     { id: 1, name: 'Botanischer Garten, Universität' },
@@ -34,7 +36,7 @@ export class Tab2Page {
     { id: 4, name: 'Stuhlsatzenhause' },
   ];
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private dataService: DataService) {
     this.ports1 = [
       { id: 1, name: 'Markt, Dudweiler Saarbrücken' },
       { id: 2, name: 'Bürgerhaus, Dudweiler Saarbrücken' },
@@ -79,9 +81,11 @@ export class Tab2Page {
   }
 
 goToSearchResults() {
-//this.router.navigateByUrl('/tabs/tab2/search-results');
-//this.router.navigate(['/search-results'], { queryParams: { page: pageNum } });
-this.router.navigate(['/tabs/tab2/search-results', { start_location: this.port1.name, end_location: this.port2.name }]);
+this.locations[0] = this.port1.name;
+this.locations[1] = this.port2.name;
+this.dataService.setData(1, this.locations);
+this.router.navigate(['/tabs/tab2/search-results/1']);
+//this.router.navigate(['/tabs/tab2/search-results', { start_location: this.port1.name, end_location: this.port2.name }]);
 }
 
 

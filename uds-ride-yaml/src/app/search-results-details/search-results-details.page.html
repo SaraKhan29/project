@@ -10,7 +10,7 @@
 
 
       <ion-buttons slot="secondary">
-        <ion-button color="primary" fill="clear" href="/tabs/tab2/search-results"><ion-icon name="arrow-back"></ion-icon> Back</ion-button>
+        <ion-button color="primary" fill="clear" href="/tabs/tab2/search-results/1"><ion-icon name="arrow-back"></ion-icon> Back</ion-button>
       </ion-buttons>
     </ion-toolbar>
 
@@ -32,8 +32,8 @@
             </div>
           </ion-col>
           <ion-col size="9">
-            <ion-card-title>{{this.profile.first_name}} {{this.profile.last_name}}</ion-card-title>
-            <ion-card-subtitle> {{this.car.name}}</ion-card-subtitle>
+            <ion-card-title>{{ this.ride.driver }}</ion-card-title>
+            <ion-card-subtitle>{{ this.ride.carobj.brand }} {{ this.ride.carobj.model }}</ion-card-subtitle>
           </ion-col>
 
 
@@ -45,11 +45,11 @@
         <ion-row>
           <ion-col size="6">
             <ion-icon name="calendar" size="large"></ion-icon>
-            <ion-card-subtitle class="align-center"> {{this.ride.date}} </ion-card-subtitle>
+            <ion-card-subtitle class="align-center">{{ this.ride.date }}</ion-card-subtitle>
           </ion-col>
           <ion-col size="6">
             <ion-icon name="time" size="large"></ion-icon>
-            <ion-card-subtitle class="align-center"> {{this.ride.start_time}} - {{this.ride.end_time}} </ion-card-subtitle>
+            <ion-card-subtitle class="align-center"> {{ this.ride.start_time }} - {{ this.ride.end_time }}</ion-card-subtitle>
           </ion-col>
 
 
@@ -73,7 +73,8 @@
 
                 </ion-col>
                 <ion-col size="10">
-                  <ion-icon name="close-circle" color="danger" size="large"> </ion-icon>
+                  <ion-icon [hidden]="this.ride.carobj.childseat" name="close-circle" color="danger" size="large"> </ion-icon>
+                  <ion-icon [hidden]="!this.ride.carobj.childseat" name="checkmark-circle" color="success" size="large"></ion-icon>
                   <p>Child Seat</p>
                 </ion-col>
 
@@ -95,7 +96,8 @@
 
                 </ion-col>
                 <ion-col size="10">
-                  <ion-icon name="checkmark-circle" color="success" size="large" ></ion-icon>
+                  <ion-icon [hidden]="this.ride.carobj.wheelchair" name="close-circle" color="danger" size="large"> </ion-icon>
+                  <ion-icon [hidden]="!this.ride.carobj.wheelchair" name="checkmark-circle" color="success" size="large"></ion-icon>
                   <p>Wheel Chair</p>
                 </ion-col>
 
@@ -118,7 +120,7 @@
 
                 </ion-col>
                 <ion-col size="8">
-                  {{this.car.seats}} Seats Available
+                  {{ this.ride.available_seats }} Seats Available
                 </ion-col>
 
 
@@ -134,9 +136,8 @@
 
       <ion-grid>
         <ion-row>
-          <p class="align-justify">
-          </p>
-         
+          <p class="align-justify"> </p>
+
         </ion-row>
 
       </ion-grid>

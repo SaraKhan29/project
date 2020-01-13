@@ -39,7 +39,7 @@
 			<ion-item *ngFor="let car of cars" (click)="editCar(car)" href="javascript:void(0)">
 				<ion-label>
 					<h2>{{ car.name }}</h2>
-					<p>{{ car.brand }} / {{ car.model }}</p>
+					<p>{{ car.brand }} {{ car.model }}</p>
 				</ion-label>
 			</ion-item>
 		</ion-list>

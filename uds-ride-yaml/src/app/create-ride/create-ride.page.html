@@ -46,7 +46,7 @@
       cancelText="Dismiss"
       [(ngModel)]="ride.car"
     >
-      <ion-select-option *ngFor="let car of cars" value="{{car}}">
+      <ion-select-option *ngFor="let car of cars" value="{{car.id}}">
         {{car.name}}
       </ion-select-option>
     </ion-select>
