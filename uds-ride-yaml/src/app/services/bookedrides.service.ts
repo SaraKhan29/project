@@ -48,10 +48,7 @@ export class BookedRideService {
 		return this.rideCollection.doc<BookedRide>(id).valueChanges();
 	}
 
-	updateRide(ride: BookedRide) {
-		return this.rideCollection.doc(ride.id).update(ride);
-	}
-
+	
 	addRide(ride: BookedRide) {
 		return this.rideCollection.add(ride);
 	}

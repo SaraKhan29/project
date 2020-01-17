@@ -71,9 +71,35 @@ async getBookedRides()
 	var currentuser=FIREBASE_AUTH.currentUser.uid;
 	await this.bookrideService.getRides().subscribe(res => {
     		this.bookedrides = res;
-			if(this.bookedrides[0].uid==currentuser)
-			{
-   					console.log(this.bookedrides[0].rideid)
+
+	 console.log(this.bookedrides)
+   // for each ride in this.rides set the value of carobj using this.rides[i].car which is the id. 
+   
+   /*this.carService.getAllCarUpdates().subscribe(res => {
+    this.cars = res;
+
+    for (const ride of this.bookedrides) {
+      for (const car of this.cars) {
+        if (car.id === ride.car) {
+          ride.carobj = car;
+        }
+      }
+    }
+   });
+    console.log("Rides found: " + this.bookedrides);
+
+
+
+
+
+
+
+
+
+
+			//if(this.bookedrides[0].uid==currentuser)
+			//{
+   					/*console.log(this.bookedrides[0].rideid)
    					this.rideservice.getRide(this.bookedrides[0].rideid).subscribe(res => {
     				this.rides2 = res;
 		    		console.log(this.rides2);
@@ -82,9 +108,8 @@ async getBookedRides()
 					console.log(this.carobj2)
 					
    					})
-			})
+			})*/
 		
-		}
 	})
 }
 
